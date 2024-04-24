@@ -9,7 +9,8 @@ const SliderFolder = () => {
           overflowX: 'scroll', 
           whiteSpace: 'nowrap', '&::-webkit-scrollbar': { display: 'none' }, 
           scrollbarWidth: 'none',
-          borderBottom: '2px solid gray'
+          borderBottom: '2px solid white',
+          color: "white"
           }}>
         <ListItem>
           <Typography>All</Typography>
