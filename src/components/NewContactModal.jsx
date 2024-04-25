@@ -25,6 +25,17 @@ export default function NewContactModal({ users, setUsers }) {
   const [firstName, setFirstName] = React.useState('');
   const [lastName, setLastName] = React.useState('');
   const [phoneNumber, setPhoneNumber] = React.useState('');
+  // time save
+  const getCurrentTime = () => {
+    const currentDate = new Date();
+  
+    // Soatni olish
+    const hours = currentDate.getHours();
+    const minutes = currentDate.getMinutes();
+  
+    // Soatni qaytarish
+    return `${hours}:${minutes}`;
+  };
 
   const handleAddContact = () => {
     const newUser = {
@@ -32,7 +43,8 @@ export default function NewContactModal({ users, setUsers }) {
       firstName: firstName,
       lastName: lastName,
       phoneNumber: phoneNumber,
-      messages: []
+      messages: [],
+      date: getCurrentTime(),
     }
     setUsers([...users, newUser])
     handleClose();
