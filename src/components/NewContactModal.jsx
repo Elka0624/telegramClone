@@ -47,6 +47,7 @@ export default function NewContactModal({ users, setUsers }) {
       date: getCurrentTime(),
     }
     setUsers([...users, newUser])
+    localStorage.setItem('users', JSON.stringify([...users, newUser]))
     handleClose();
   }
 

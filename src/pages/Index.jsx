@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AppBar from "../components/AppBar";
 import MessageCard from "../components/MessageCard";
 import NewContactModal from "../components/NewContactModal";
@@ -10,28 +10,18 @@ import UserChatTopUi from "../components/UserChatTopUi";
 import UserChatInput from "../components/UserChatInput";
 
 function Index() {
-  const [users, setUsers] = useState([
-    {
-      userId: 234234235,
-      firstName: "Abo aka",
-      lastName: "Lexus",
-      phoneNumber: "9879875",
-      messages: [
-        {
-          text: "Salom qandesan Elka",
-          isMine: false,
-        },
-        {
-          text: "Yaxwi rahmta",
-          isMine: true,
-        },
-      ],
-      date: "12:12",
-    },
-  ]);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const usersLocal = localStorage.getItem('users');
+    if (!usersLocal) {
+      localStorage.setItem('users', JSON.stringify([]))
+    } else {
+      setUsers(JSON.parse(usersLocal))
+    }
+  }, [])
 
   const [selectedUser, setSelectedUser] = useState(null);
-  console.log(selectedUser);
   const sendMessage = (text, isMine) => {
     const newMessage = { text, isMine, date: new Date().toLocaleTimeString() };
     const updatedUsers = users.map((user) =>
@@ -40,6 +30,7 @@ function Index() {
         : user
     );
     setUsers(updatedUsers);
+    localStorage.setItem('users', JSON.stringify(updatedUsers))
     // setSelectedUser(updatedUsers)
   };
 
@@ -58,12 +49,12 @@ function Index() {
         >
           <AppBar />
           <SliderFolder />
-          <MessageCard
-            setSelectedUser={setSelectedUser}
-            selectedUser={selectedUser}
-            users={users}
-            setUsers={setUsers}
-          />
+            <MessageCard
+              setSelectedUser={setSelectedUser}
+              selectedUser={selectedUser}
+              users={users ?? []}
+              setUsers={setUsers}
+            />
           <NewContactModal users={users} setUsers={setUsers} />
         </Grid>
         <Grid
