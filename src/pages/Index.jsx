@@ -9,17 +9,7 @@ import back from "../assets/telegram.jpg";
 import UserChatTopUi from "../components/UserChatTopUi";
 import UserChatInput from "../components/UserChatInput";
 
-function Index() {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    const usersLocal = localStorage.getItem('users');
-    if (!usersLocal) {
-      localStorage.setItem('users', JSON.stringify([]))
-    } else {
-      setUsers(JSON.parse(usersLocal))
-    }
-  }, [])
+function Index({ users, setUsers, loggedUser }) {
 
   const [selectedUser, setSelectedUser] = useState(null);
   const sendMessage = (text, isMine) => {
@@ -32,7 +22,10 @@ function Index() {
     setUsers(updatedUsers);
     localStorage.setItem('users', JSON.stringify(updatedUsers))
     // setSelectedUser(updatedUsers)
+    console.log(updatedUsers);
   };
+
+  
 
   return (
     <Box sx={{ flexGrow: 1, height: "100vh" }}>
@@ -47,9 +40,10 @@ function Index() {
             height: "100vh",
           }}
         >
-          <AppBar />
+          <AppBar users={users} />
           <SliderFolder />
             <MessageCard
+              loggedUser={loggedUser}
               setSelectedUser={setSelectedUser}
               selectedUser={selectedUser}
               users={users ?? []}

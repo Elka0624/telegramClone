@@ -1,13 +1,16 @@
 import { Avatar, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useEffect } from "react";
 
 const MessageCard = (props) => {
-  const { users, setSelectedUser, selectedUser } = props;
+  const { users, setSelectedUser, selectedUser, loggedUser } = props;
+
+  const selectedUsers = users.filter((user) => user?.userId === loggedUser?.userId)
+  console.log('selectedUsers',selectedUsers);
   
   return (
     <div>
-      {users.map((user) => (
+      {users.filter((user) => user?.userId !== loggedUser?.userId).map((user) => (
         <Box
           onClick={() => setSelectedUser(user)}
           key={user.userId}
@@ -37,8 +40,8 @@ const MessageCard = (props) => {
                   border: "2px solid #3390ecb3",
                 }}
               >
-                {user.firstName.substr(0, 1).toUpperCase()}
-                {user.lastName.substr(0, 1).toUpperCase()}
+                {user.firstName && user.firstName.substr(0, 1).toUpperCase()}
+                {user.lastName && user.lastName.substr(0, 1).toUpperCase()}
               </Box>
             )}
           </Box>
