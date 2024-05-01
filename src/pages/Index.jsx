@@ -15,7 +15,6 @@ function Index({ users, setUsers, loggedUser }) {
   const messages = useMemo(() => users.find((usercha)  => usercha.userId === selectedUser?.userId)?.messages ?? [], [users])
 
   const sendMessage = (newMessage) => {
-    console.log(newMessage)
     const updatedUsers = users.map((user) =>
       user.userId === newMessage.receiverId || user.userId === newMessage.senderId
         ? { ...user, messages: [...user.messages, newMessage ] }
@@ -24,7 +23,6 @@ function Index({ users, setUsers, loggedUser }) {
     setUsers(updatedUsers);
     localStorage.setItem('users', JSON.stringify(updatedUsers))
     setSelectedUser(updatedUsers.find((item) => item.userId === newMessage.receiverId))
-    console.log(updatedUsers);
   };
 
 
@@ -69,8 +67,9 @@ function Index({ users, setUsers, loggedUser }) {
                 <UserChatTopUi selectedUser={selectedUser} />
               </Box>
               <Box
+                id="your-box-id"
                 sx={{
-                  height: "75%",
+                  height: "78%",
                   overflowY: 'auto',
                   "&::-webkit-scrollbar": { width: "0.4em", },
                   "&::-webkit-scrollbar-track": {

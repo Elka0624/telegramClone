@@ -6,7 +6,6 @@ const MessageCard = (props) => {
   const { users, setSelectedUser, selectedUser, loggedUser } = props;
 
   const selectedUsers = users.filter((user) => user?.userId === loggedUser?.userId)
-  console.log('selectedUsers',selectedUsers);
   
   return (
     <div>

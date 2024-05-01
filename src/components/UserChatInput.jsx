@@ -24,7 +24,10 @@ const UserChatInput = ({ setSelectedUser, selectedUser, sendMessage, loggedUser 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       handleSendMessage();
-      scrollY('100px')
+      const box = document.getElementById("your-box-id");
+      if (box) {
+        box.scrollTop = box.scrollHeight;
+      }
     }
   };
   return (
@@ -63,7 +66,7 @@ const UserChatInput = ({ setSelectedUser, selectedUser, sendMessage, loggedUser 
           />
           <FiPaperclip size={25} color={"black"} />
         </Box>
-        <Button onClick={handleSendMessage} sx={{ width: "10px", background: "#1976d2" }}>
+        <Button onClick={handleSendMessage} sx={{ width: "40px", background: "#1976d2", height: '40px', borderRadius: '50px', marginLeft: '10px' }}>
           <FiSend size={20} color={"white"} />
         </Button>
       </Box>
