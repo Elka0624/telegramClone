@@ -21,7 +21,6 @@ const AppBar = ({ users }) => {
   const id = open ? "simple-popover" : undefined;
 
   const handleLogOut = () => {
-    localStorage.setItem("loggedUser", '')
     window.location.reload()
   }
 

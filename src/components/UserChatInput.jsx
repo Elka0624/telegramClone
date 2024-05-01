@@ -6,19 +6,25 @@ import { FiSmile } from "react-icons/fi";
 import { FiPaperclip } from "react-icons/fi";
 import { FiSend } from "react-icons/fi";
 
-const UserChatInput = ({ setSelectedUser, selectedUser, sendMessage}) => {
+const UserChatInput = ({ setSelectedUser, selectedUser, sendMessage, loggedUser }) => {
   const [messageText, setMessageText] = useState('');
 
   const handleSendMessage = () => {
     if (messageText.trim() !== "") {
-      sendMessage(messageText, true);
-      setSelectedUser({ ...selectedUser, messages: [...selectedUser.messages, { text: messageText, isMine: true }] })
+      const newMessage = {
+        text: messageText,
+        senderId: loggedUser.userId,
+        receiverId: selectedUser.userId,
+        date: new Date().toLocaleTimeString(),
+      }
+      sendMessage(newMessage);
       setMessageText("");
     }
   }
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       handleSendMessage();
+      scrollY('100px')
     }
   };
   return (

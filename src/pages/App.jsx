@@ -5,16 +5,16 @@ import Login from './Login.jsx'
 const usersData = [
   {
     userId: 1,
-    firstName: 'Elkajonov',
-    lastName: 'Elka',
+    firstName: 'User',
+    lastName: 'One',
     email: 'test@gmail.com',
-    password: '1234',
+    password: '1234',   
     messages: []
   },
   {
     userId: 2,
-    firstName: 'Elkajonov2',
-    lastName: 'Elka2',
+    firstName: 'User',
+    lastName: 'Two',
     email: 'test2@gmail.com',
     password: '12345',
     messages: []
@@ -32,22 +32,15 @@ function App() {
   const [users, setUsers] = useState([]);
   
   useEffect(() => {
-    const usersLocal = localStorage.getItem('users');
-    if (usersLocal) {
-      setUsers(JSON.parse(usersLocal))
-    }
+    setInterval(() => {
+      const usersLocal = localStorage.getItem('users');
+      if (usersLocal) {
+        setUsers(JSON.parse(usersLocal))
+      }
+    }, 500)
   }, [])
 
   const [loggedUser, setLoggedUser] = useState(null);
-  
-  useEffect(() => {
-    const loggedUserData = localStorage.getItem('loggedUser');
-    if (loggedUserData) {
-      setLoggedUser(JSON.parse(loggedUserData));
-    }
-  }, []);
-
-  console.log(loggedUser);
 
   return (
     <>

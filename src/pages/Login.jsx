@@ -7,10 +7,12 @@ const Login = ({ users, setLoggedUser }) => {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    console.log(users, 'ttttt');
     const foundUser = users.find(user => user.email === email && user.password === password);
-    setLoggedUser(foundUser.userId);
-    localStorage.setItem('loggedUser', JSON.stringify(foundUser))
+    if (foundUser) {
+      setLoggedUser(foundUser);
+    } else {
+      console.log('User not found');
+    }
   };
 
   return (

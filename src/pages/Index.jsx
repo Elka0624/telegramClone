@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import AppBar from "../components/AppBar";
 import MessageCard from "../components/MessageCard";
 import NewContactModal from "../components/NewContactModal";
@@ -12,20 +12,22 @@ import UserChatInput from "../components/UserChatInput";
 function Index({ users, setUsers, loggedUser }) {
 
   const [selectedUser, setSelectedUser] = useState(null);
-  const sendMessage = (text, isMine) => {
-    const newMessage = { text, isMine, date: new Date().toLocaleTimeString() };
+  const messages = useMemo(() => users.find((usercha)  => usercha.userId === selectedUser?.userId)?.messages ?? [], [users])
+
+  const sendMessage = (newMessage) => {
+    console.log(newMessage)
     const updatedUsers = users.map((user) =>
-      user.userId === selectedUser.userId
-        ? { ...user, messages: [...user.messages, newMessage] }
+      user.userId === newMessage.receiverId || user.userId === newMessage.senderId
+        ? { ...user, messages: [...user.messages, newMessage ] }
         : user
     );
     setUsers(updatedUsers);
     localStorage.setItem('users', JSON.stringify(updatedUsers))
-    // setSelectedUser(updatedUsers)
+    setSelectedUser(updatedUsers.find((item) => item.userId === newMessage.receiverId))
     console.log(updatedUsers);
   };
 
-  
+
 
   return (
     <Box sx={{ flexGrow: 1, height: "100vh" }}>
@@ -68,8 +70,8 @@ function Index({ users, setUsers, loggedUser }) {
               </Box>
               <Box
                 sx={{
-                  height: "490px",
-                  overflowY: "auto",
+                  height: "75%",
+                  overflowY: 'auto',
                   "&::-webkit-scrollbar": { width: "0.4em", },
                   "&::-webkit-scrollbar-track": {
                     boxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
@@ -82,7 +84,7 @@ function Index({ users, setUsers, loggedUser }) {
                   }
                 }}
               >
-                {selectedUser.messages.map((message, index) => (
+                {messages.map((message, index) => (
                   <Box
                     key={index}
                     sx={{
@@ -95,14 +97,14 @@ function Index({ users, setUsers, loggedUser }) {
                   >
                     <Box
                       sx={{
-                        textAlign: message.isMine ? "right" : "left",
+                        textAlign: message.senderId === loggedUser.userId ? "right" : "left",
                         maxWidth: "500px",
                         padding: "10px",
-                        borderRadius: message.isMine
+                        borderRadius: message.senderId === loggedUser.userId
                           ? "20px 20px 0px 20px"
                           : "20px 20px 20px 0px",
-                        background: message.isMine ? "#06d814a1" : "#c6d8c6ad",
-                        marginLeft: message.isMine ? "auto" : "0",
+                        background: message.senderId === loggedUser.userId ? "#06d814a1" : "#c6d8c6ad",
+                        marginLeft: message.senderId === loggedUser.userId ? "auto" : "0",
                       }}
                     >
                       <Typography sx={{ fontWeight: "bold" }}>
@@ -117,6 +119,7 @@ function Index({ users, setUsers, loggedUser }) {
               </Box>
               <Box>
                 <UserChatInput
+                  loggedUser={loggedUser}
                   setSelectedUser={setSelectedUser}
                   selectedUser={selectedUser}
                   sendMessage={sendMessage}
