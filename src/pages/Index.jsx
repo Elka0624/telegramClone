@@ -6,6 +6,7 @@ import MessageCard from "../components/MessageCard";
 import NewContactModal from "../components/NewContactModal";
 import SliderFolder from "../components/SliderFolder";
 import back from "../assets/telegram.jpg";
+import back2 from '../assets/back2.jpg'
 import UserChatTopUi from "../components/UserChatTopUi";
 import UserChatInput from "../components/UserChatInput";
 
@@ -25,40 +26,40 @@ function Index({ users, setUsers, loggedUser }) {
     setSelectedUser(updatedUsers.find((item) => item.userId === newMessage.receiverId))
   };
 
-
-
   return (
-    <Box sx={{ flexGrow: 1, height: "100vh" }}>
+    <Box sx={{ flexGrow: 1, minHeight: "100vh" }}>
       <Grid container>
         <Grid
           item
-          xs={3.5}
+          xs={12}
+          sm={4}
           sx={{
             backgroundColor: "#5c9ab2",
             padding: "8px 10px",
             paddingBottom: "0px",
-            height: "100vh",
+            minHeight: "100vh",
           }}
         >
           <AppBar users={users} />
           <SliderFolder />
-            <MessageCard
-              loggedUser={loggedUser}
-              setSelectedUser={setSelectedUser}
-              selectedUser={selectedUser}
-              users={users ?? []}
-              setUsers={setUsers}
-            />
+          <MessageCard
+            loggedUser={loggedUser}
+            setSelectedUser={setSelectedUser}
+            selectedUser={selectedUser}
+            users={users ?? []}
+            setUsers={setUsers}
+          />
           <NewContactModal users={users} setUsers={setUsers} />
         </Grid>
         <Grid
           item
-          xs={8.5}
+          xs={12}
+          sm={8}
           sx={{
-            height: "100vh",
-            backgroundImage: `url(${back})`,
+            backgroundImage: `url(${back2})`,
             backgroundSize: "cover",
             backgroundPosition: "right",
+            minHeight: "100vh",
           }}
         >
           {selectedUser && (
@@ -69,9 +70,9 @@ function Index({ users, setUsers, loggedUser }) {
               <Box
                 id="your-box-id"
                 sx={{
-                  height: "78%",
+                  height: "60vh",
                   overflowY: 'auto',
-                  "&::-webkit-scrollbar": { width: "0.4em", },
+                  "&::-webkit-scrollbar": { width: "0.4em" },
                   "&::-webkit-scrollbar-track": {
                     boxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
                     webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",

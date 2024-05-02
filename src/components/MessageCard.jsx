@@ -22,6 +22,7 @@ const MessageCard = (props) => {
             marginTop: "10px",
             color: "black",
             "&:hover": { backgroundColor: "#3390ecb3", cursor: "pointer" },
+            borderRadius: '20px'
           }}
         >
           <Box width={70}>
@@ -48,6 +49,7 @@ const MessageCard = (props) => {
             sx={{
               display: "flex",
               flexDirection: "column",
+              marginLeft: '20px'
             }}
           >
             <Box

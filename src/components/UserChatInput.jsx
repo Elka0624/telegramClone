@@ -20,6 +20,10 @@ const UserChatInput = ({ setSelectedUser, selectedUser, sendMessage, loggedUser 
       sendMessage(newMessage);
       setMessageText("");
     }
+    const box = document.getElementById("your-box-id");
+      if (box) {
+        box.scrollTop = box.scrollHeight;
+      }
   }
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {

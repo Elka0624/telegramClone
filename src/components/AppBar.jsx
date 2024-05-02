@@ -6,9 +6,9 @@ import Button from "@mui/material/Button";
 import { FiAlignJustify } from "react-icons/fi";
 import { FiSearch } from "react-icons/fi";
 
-const AppBar = ({ users }) => {
+const AppBar = ({ users,  }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  console.log();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -34,7 +34,7 @@ const AppBar = ({ users }) => {
       }}
     >
       <FiAlignJustify
-        size={"25px"}
+        size={"35px"}
         color={"white"}
         aria-describedby={id}
         variant="contained"
@@ -62,10 +62,10 @@ const AppBar = ({ users }) => {
           }}
         >
           <Typography sx={{ background: "#ececec", padding: "10px" }}>
-            FistName: Elka
+            FistName: {}
           </Typography>
           <Typography sx={{ background: "#ececec", padding: "10px" }}>
-            LastName: Elka
+            LastName: {}
           </Typography>
           <Button onClick={() => handleLogOut()}>LogOut</Button>
         </Box>
@@ -81,6 +81,7 @@ const AppBar = ({ users }) => {
           borderRadius: "20px",
           border: "1px solid white",
           color: "white",
+          marginLeft: '20px'
         }}
       >
         <FiSearch size={"25px"} color={"white"} />
